@@ -1,0 +1,30 @@
+- name: Configure DB Server
+  hosts: db
+  become: yes
+  vars:
+    login_host: db.dawsmani.site
+  tasks:
+    - name: Install MYSQL Server
+      ansible.builtin.dnf:
+        name: mysql-server
+        state: latest
+    
+    - name: Start and Enable MYSQL
+      ansible.builtin.service:
+        name: mysqld
+        state: started
+        enabled: yes
+
+# Check password is already setup or not
+    - name: Check DB Connection # Using Community Module (Internet)
+      community.mysql.mysql_info:
+        login_user: root
+        login_password: ExpenseApp@1
+        login_host: "{{login_host}}"
+        filter: version
+      ignore_errors: yes
+      register: mysql_connection_output
+
+    - name: Print output
+      ansible.builtin.debug:
+        msg: "Output: {{mysql_connection_output}}"
