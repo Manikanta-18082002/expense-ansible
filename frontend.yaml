@@ -12,6 +12,26 @@
       name: nginx
       state: started
       enabled: yes
+
+  - name: delete default website
+    ansible.builtin.file:
+      path: /usr/share/nginx/html  # No use of * (Won't delete)
+      state: absent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   # Interview lo what are the modules you used in Ansible?
   #Module: dnf, service, file, user, pip, mysql, debug, command, shell,....
