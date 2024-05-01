@@ -16,9 +16,12 @@
   - name: delete default website
     ansible.builtin.file:
       path: /usr/share/nginx/html  # No use of * (Won't delete)
-      state: absent
+      state: absent # Deleted html directory (Contains default website)
 
-
+  - name: create html directory
+    ansible.builtin.file:
+      path: /usr/share/nginx/html
+      state: directory # Creating html dir
 
 
 
