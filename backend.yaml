@@ -30,10 +30,18 @@
 
   - name: unzip backend code
     ansible.builtin.unarchive:  #Unzip
-      src: /tmp/backend.zip # by default checks in ansible server, but we are saying check in src folder
+      src: /tmp/backend.zip #src:  by default checks in ansible server, and unZip in remote machine
       dest: /app
-      remote_src: yes
+      remote_src: yes #Sying: Un-Archive a file that is already in the remote machine
+
+  - name: install npm dependencies
+    ansible.builtin.command: npm install # Should be installed where package.json is located (backend -> /app/)
+    args:
+      chdir: /app #Before npm install go to this dir and install
 
 
+
+# TASK [Gathering Facts]  --> Querying the DB
+# ok: [backend.dawsmani.site]
 
 
