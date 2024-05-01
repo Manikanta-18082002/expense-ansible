@@ -10,14 +10,29 @@
     ansible.builtin.command: dnf module enable nodejs:20 -y
 
   - name: install nodejs
-    ansible.builtin.dnf: # only works for Redhat family
+    ansible.builtin.dnf: # Homogenous, only works for Redhat family
       name: nodejs
       state: installed
 
   - name: create expense user
-    ansible.builtin.user:
+    ansible.builtin.user: # Hetrogenous, Works for all Distributions (Ex: .package)
       name: expense
 
+  - name: create app directory
+    ansible.builtin.file:
+      path: /app
+      state: directory
+    
+  - name: download backend code
+    ansible.builtin.get_url:
+      url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+      dest: /tmp/backend.zip
+
+  - name: unzip backend code
+    ansible.builtin.unarchive:  #Unzip
+      src: /tmp/backend.zip # by default checks in ansible server, but we are saying check in src folder
+      dest: /app
+      remote_src: yes
 
 
 
