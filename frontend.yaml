@@ -24,6 +24,13 @@
       state: directory # Creating html dir
 
 
+  - name: download and extract frontend code  # in backend we did seperate (download, unarchive)
+    ansible.builtin.unarchive: # -> A file that needs to be downloaded (Both download + unarchive)
+      src: https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+      dest: /usr/share/nginx/html
+      remote_src: yes
+
+
 
 
 
