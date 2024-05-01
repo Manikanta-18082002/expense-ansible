@@ -1,0 +1,17 @@
+- name: configure frontend server
+  become: yes
+  hosts: frontend
+  tasks:
+  - name: install nginx server
+    ansible.builtin.dnf:
+      name: nginx
+      state: latest
+
+  - name: start and enable nginx
+    ansible.builtin.service:
+      name: nginx
+      state: started
+      enabled: yes
+  
+  # Interview lo what are the modules you used in Ansible?
+  dnf, service, file, user, pip, mysql, debug, command, shell,....
