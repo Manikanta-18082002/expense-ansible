@@ -35,11 +35,11 @@
       filter: version
     ignore_errors: yes
     register: mysql_connection_output
-
+# If Above failed --> then it is not setup , else Setup
   - name: print output
     ansible.builtin.debug:
       msg: "Output: {{mysql_connection_output}} "
 
-  - name: setup root password
+  - name: setup root password #No Module to setup, that's why we wrote mannually
     ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_password }}"
     when: mysql_connection_output.failed is true
