@@ -1,0 +1,56 @@
+troubleshoot (Come from backside -> DB -> Backend -> Frontend)
+--------------------
+ while connecting to the server --> Cross check (& allow 3306 at) inbound rules, security group and key pairs.
+
+DB (Port number: 3306)
+---
+check mysql service is running or not
+systemctl status mysqld
+
+check port no 3306 is opened or not
+netstat -lntp
+
+check you are able to connect mysql or not
+mysql -h db.daws78s.online -u root -pExpenseApp@1
+show databases;
+select * from transactions;
+
+
+mysql process is running or not
+ps -ef | grep mysql
+
+
+Backend (Port number: 8080)
+--------
+check backend service is running
+systemctl status backend
+
+If not running 
+then restart the service
+
+check port no 8080 is running or not
+netstat -lntp
+
+check you are able to connect mysql or not
+telnet db.daws78s.online 3306
+
+check mysql data is imported
+mysql -h db.daws78s.online -u root -pExpenseApp@1
+show databases;
+use transactions;
+show tables;
+
+ps -ef | grep expense / node
+
+frontend (Port number: 80)
+-----------
+systemctl status nginx
+netstat -lntp --> port no 80
+
+telnet backend.daws78s.online 8080
+
+system/os package --> mysql(c language)
+ansible --> PyMYSQL (python)
+nodejs backend --> mysql(nodejs package)
+can java application use mysql nodejs library? no
+

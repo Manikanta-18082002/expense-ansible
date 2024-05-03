@@ -1,6 +1,6 @@
 - name: configure backend server
-  become: yes
   hosts: backend
+  become: yes
   vars:
     login_host: db.dawsmani.site
     login_password: ExpenseApp@1
@@ -35,13 +35,13 @@
       dest: /tmp/backend.zip
 
   - name: unzip backend code
-    ansible.builtin.unarchive:  #Unzip
-      src: /tmp/backend.zip #src:  by default checks in ansible server, and unZip in remote machine
+    ansible.builtin.unarchive:  #Unziping
+      src: /tmp/backend.zip #src:  by default checks file in ansible server (We get error), and unZip in remote machine
       dest: /app
-      remote_src: yes #Sying: Un-Archive a file that is already in the remote machine
+      remote_src: yes #Saying: Un-Archive a file that is already in the remote machine
 
   - name: install npm dependencies
-    ansible.builtin.command: npm install # Should be installed where package.json is located (backend -> /app/)
+    ansible.builtin.command: npm install #--> Should be installed where package.json is located (backend -> /app/)
     args:
       chdir: /app #Before npm install go to this dir and install
 
@@ -53,8 +53,8 @@
   - name: install python mysql dependencies
     ansible.builtin.pip: 
       name:
-      - PyMySQL # to connect MySQL DB from Ansible
-      - cryptography
+      - PyMySQL # To connect MySQL DB from Ansible
+      - cryptography # Purpose_For: Authentication, Data Encryption, Key Management, Secure Communication, 
       executable: pip3.9 # pip3.11 if python version is 3.11
 
   - name: import data into mysql
